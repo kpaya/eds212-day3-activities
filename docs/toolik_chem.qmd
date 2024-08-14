@@ -1,0 +1,52 @@
+---
+title: "toolik_chem"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+#libraries
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+```{r}
+toolik_biochem<-read.csv(here::here("data", "2011_Kling_Akchem.csv"),na.strings=c(".","NA"))
+toolik_biochem <- clean_names(toolik_biochem) 
+view(toolik_biochem)
+```
+
+Create a subset of the data that contains only observations from the “Toolik Inlet” site, and that only contains the variables (columns) for pH, dissolved organic carbon (DOC), and total dissolved nitrogen (TDN) (hint: see dplyr::select()). Store this subset as inlet_biochem. Make sure to look at the subset you’ve created.
+
+```{r}
+inlet_biochem<- toolik_biochem %>%
+  filter(site == "Toolik Inlet") %>%
+  select(p_h, doc_u_m, tdn_u_m)
+
+view(inlet_biochem)
+```
+
+Find the mean value of each column in inlet_biochem 3 different ways:
+i)Write a for loop from scratch to calculate the mean for each
+ii)Use one other method (e.g. apply, across, or purrr::map_df) to find the mean for each column.
+```{r}
+inlet_biochem_cleaned <- inlet_biochem %>%
+  #mutate(across(everything(), ~na_if(.,"."))) %>%
+   mutate(across(everything(), as.numeric))
+
+view(inlet_biochem_cleaned)
+
+means <- c()
+
+for (i in seq_along(inlet_biochem_cleaned)){
+  means <- c(means,mean(inlet_biochem_cleaned[,i], na.rm = TRUE))
+}
+mean(inlet_biochem_cleaned[1], na.rm = TRUE)
+```
+```{r}
+column_means <- apply(X=inlet_biochem_cleaned, MARGIN=2, FUN= mean(inlet_biochem_cleaned, na.rm = TRUE))
+print(column_means)
+```
+
+
