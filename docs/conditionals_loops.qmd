@@ -1,0 +1,65 @@
+---
+title: "conditionals_loops"
+author: "Karol Paya"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library("stringr")
+```
+
+```{r}
+pm2_5<-300
+
+if (pm2_5 <100) {
+  print("Unhealthy for sensitive groups")
+} else if (pm2_5 >= 100 && pm2_5 < 150) {
+  print("Unhealthy for sensitive groups")
+} else (pm2_5>150)
+  print ("Health risk present")
+
+```
+
+
+
+```{r}
+species<-"blue whale"
+
+
+if (str_detect(species,pattern="whale")) {
+  print("You found a whale!")
+} else {
+#print nothing
+}
+  
+```
+
+
+Store the base price of a burrito as base_burrito with a value of 6.50. Store main_ingredient with a starting string of “veggie.” Write a statement that will return the price of a burrito based on what a user specifies as “main_ingredient” (either “veggie”, “chicken” or “steak”) given the following:
+
+A veggie burrito is the cost of a base burrito
+A chicken burrito costs 3.00 more than a base burrito
+A steak burrito costs 3.25 more than a base burrito
+
+```{r}
+base_burrito<-6.5
+main_ingredient<-"veggie"
+
+if (main_ingredient=="veggie") {
+  price<-base_burrito
+  print(price)
+} else if (main_ingredient=="chicken") {
+  price<-base_burrito*3
+  print(price)
+} else if (main_ingredient=="steak") {
+  price<-base_burrito*3.25
+  print(price)
+} else {
+  }
+```
+
+```{r}
+
+```
+
